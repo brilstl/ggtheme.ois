@@ -19,13 +19,8 @@ likert_plot <- function(.data,y_as, fill){
   # check evaluation of vars ----
 
 
-  if(is.character(fill)){
-    fill <- as.name(fill)
-  }
-
-  if(is.character(y_as)){
-    y_as <- as.name(y_as)
-  }
+  fill <- ensym(fill)
+  y_as <- ensym(y_as)
 
 
   # prepare data distribution ----
