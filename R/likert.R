@@ -15,6 +15,19 @@ likert_plot <- function(.data,y_as, fill){
     font <- "sans"
   }
 
+
+  # check evaluation of vars ----
+
+
+  if(is.character(fill)){
+    fill <- as.name(fill)
+  }
+
+  if(is.character(y_as)){
+    y_as <- as.name(y_as)
+  }
+
+
   # prepare data distribution ----
 
   .data <- .data %>%
