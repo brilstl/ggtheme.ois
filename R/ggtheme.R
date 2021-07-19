@@ -5,7 +5,7 @@ theme_ois <- function(){
 
 
   if(Sys.info()['sysname'] == "Windows"){
-    windowsFonts("Corbel" = windowsFont("Corbel"))
+    grDevices::windowsFonts("Corbel" = grDevices::windowsFont("Corbel"))
     font <- "Corbel"
   }
   else{

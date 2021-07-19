@@ -14,5 +14,6 @@ Config/testthat/edition: 3
 Imports: 
     forcats,
     dplyr,
-    ggplot2
+    ggplot2,
+    grDevices
 RoxygenNote: 7.1.1
