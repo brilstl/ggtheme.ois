@@ -8,6 +8,12 @@ theme_ois <- function(){
     grDevices::windowsFonts("Corbel" = grDevices::windowsFont("Corbel"))
     font <- "Corbel"
   }
+  else if(Sys.info()['sysname'] == "Linux"){
+    dir.create('~/.fonts')
+    file.copy('inst/exdata/fonts/CORBEL.TTF', '~/.fonts')
+    system('fc-cache -f ~/.fonts')
+    font <- "Corbel"
+  }
   else{
     font <- "sans"
   }

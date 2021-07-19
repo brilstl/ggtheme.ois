@@ -6,6 +6,11 @@
 \usage{
 likert_plot(.data, y_as, fill)
 }
+\arguments{
+\item{y_as}{de waarde die op de y-as worden getoond}
+
+\item{fill}{de waarde waarmee de balken worden gevuld}
+}
 \description{
 helper function to make ois likert scale in ggplot2
 }

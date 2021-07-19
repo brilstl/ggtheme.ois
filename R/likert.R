@@ -11,6 +11,12 @@ likert_plot <- function(.data,y_as, fill){
     grDevices::windowsFonts("Corbel" = grDevices::windowsFont("Corbel"))
     font <- "Corbel"
   }
+  else if(Sys.info()['sysname'] == "Linux"){
+    dir.create('~/.fonts')
+    file.copy('inst/exdata/fonts/CORBEL.TTF', '~/.fonts')
+    system('fc-cache -f ~/.fonts')
+    font <- "Corbel"
+  }
   else{
     font <- "sans"
   }
@@ -19,8 +25,8 @@ likert_plot <- function(.data,y_as, fill){
   # check evaluation of vars ----
 
 
-  fill <- ensym(fill)
-  y_as <- ensym(y_as)
+  fill <- dplyr::ensym(fill)
+  y_as <- dplyr::ensym(y_as)
 
 
   # prepare data distribution ----
