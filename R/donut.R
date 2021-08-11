@@ -1,13 +1,12 @@
-donut_plot <- function(.data, fill){
+#' @title helper function to make ois donut plot in ggplot2
+#' @import ggplot2 dplyr forcats
+#' @param fill de waarde waarmee de balken worden gevuld
+#' @param facet de waarde die de groepen onderverdeelt in 'facets'
+#' @export
+donut_plot <- function(.data, fill, facet = NULL){
 
   if(Sys.info()['sysname'] == "Windows"){
     grDevices::windowsFonts("Corbel" = grDevices::windowsFont("Corbel"))
-    font <- "Corbel"
-  }
-  else if(Sys.info()['sysname'] == "Linux"){
-    dir.create('~/.fonts')
-    file.copy('inst/exdata/fonts/CORBEL.TTF', '~/.fonts')
-    system('fc-cache -f ~/.fonts')
     font <- "Corbel"
   }
   else{
@@ -19,19 +18,44 @@ donut_plot <- function(.data, fill){
 
   fill <- dplyr::ensym(fill)
 
+  if(!is.null(facet)){
 
-  .data <- .data %>%
-    dplyr::select({{fill}}) %>%
-    dplyr::mutate(n = n()) %>%
-    dplyr::mutate('{{fill}}' := forcats::as_factor({{fill}}),
-                  '{{fill}}' := forcats::fct_explicit_na({{fill}}, "geen antwoord")) %>%
-    dplyr::group_by({{fill}}) %>%
-    dplyr::count() %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(percentage = n/sum(n) * 100,
-                  ymax = cumsum(percentage),
-                  ymin = c(0, head(ymax, n=-1)),
-                  labelPosition = (ymax + ymin) / 2)
+    facet <- dplyr::sym(facet)
+
+  }
+
+  if(is.null(facet)){
+
+    .data <- .data %>%
+      dplyr::select({{fill}}) %>%
+      dplyr::mutate(n = n()) %>%
+      dplyr::mutate('{{fill}}' := forcats::as_factor({{fill}}),
+                    '{{fill}}' := forcats::fct_explicit_na({{fill}}, "geen antwoord")) %>%
+      dplyr::group_by({{fill}}) %>%
+      dplyr::count() %>%
+      dplyr::ungroup() %>%
+      dplyr::mutate(percentage = n/sum(n) * 100,
+                    ymax = cumsum(percentage),
+                    ymin = c(0, head(ymax, n=-1)),
+                    labelPosition = (ymax + ymin) / 2)
+
+  }else if(!is.null(facet)){
+
+    .data <- .data %>%
+      dplyr::select({{fill}}, {{facet}}) %>%
+      dplyr::mutate(n = n()) %>%
+      dplyr::mutate('{{fill}}' := forcats::as_factor({{fill}}),
+                    '{{fill}}' := forcats::fct_explicit_na({{fill}}, "geen antwoord")) %>%
+      dplyr::group_by({{fill}}, {{facet}}) %>%
+      dplyr::count() %>%
+      dplyr::ungroup() %>%
+      dplyr::group_by({{facet}}) %>%
+      dplyr::mutate(percentage = n/sum(n) * 100,
+                    ymax = cumsum(percentage),
+                    ymin = c(0, head(ymax, n=-1)),
+                    labelPosition = (ymax + ymin) / 2)
+
+  }
 
 
   # check and assign 'gray' cat. ----
@@ -72,6 +96,19 @@ donut_plot <- function(.data, fill){
   }
 
 
+  # facet ----
+
+  if(is.null(facet)){
+
+    facet_attach <- NULL
+
+  }else if(!is.null(facet)){
+
+    facet_attach <- ggplot2::facet_wrap(facets = {{facet}})
+
+  }
+
+
   .data %>%
     ggplot2::ggplot(aes(ymax=ymax,
                         ymin=ymin,
@@ -80,14 +117,14 @@ donut_plot <- function(.data, fill){
                         fill={{fill}})) +
     ggplot2::geom_rect() +
     ggplot2::geom_text(x=2.2,
-                      aes(y=labelPosition,
-                          label= sprintf("%0.0f%%", percentage),
-                          color={{fill}}),
-                          fontface = "bold",
-                          check_overlap = TRUE,
-                          show.legend = FALSE,
-                          family = font,
-                          size=7) +
+                       aes(y=labelPosition,
+                           label= sprintf("%0.0f%%", percentage),
+                           color={{fill}}),
+                       fontface = "bold",
+                       check_overlap = TRUE,
+                       show.legend = FALSE,
+                       family = font,
+                       size=7) +
     ggplot2::scale_fill_manual(values = kleur) +
     ggplot2::scale_color_manual(values = kleur) +
     ggplot2::coord_polar(theta="y") +
@@ -104,6 +141,7 @@ donut_plot <- function(.data, fill){
                    strip.text = ggplot2::element_text(color = "black",
                                                       family = font,
                                                       face = "bold",
-                                                      size = 15))
+                                                      size = 15)) +
+    facet_attach
 
 }

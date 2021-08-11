@@ -1,19 +1,34 @@
 #' @title kleuren brewer voor OIS huisstijl
-#' @param dim
+#' @param dim het aantal unieke waardes in de fill
 #' @export
 kleur_fun <- function(dim){
 
-  kleur <- c('#004699',
-             '#1f76c1',
-             '#4fa8e4',
-             '#aad5f4',
-             '#e5f2fc')
+  if(dim < 5){
 
-  brew_fun <- grDevices::colorRampPalette(kleur)
+    kleur <- c('#004699',
+               '#a6c8ec',
+               '#dbecfa')
 
-  kleur <- brew_fun(dim*2)
+    brew_fun <- grDevices::colorRampPalette(kleur)
 
-  kleur <- kleur[c(TRUE,FALSE)]
+    kleur <- brew_fun(dim*3)
+
+    kleur <- kleur[c(TRUE,FALSE,FALSE)]
+
+  }else{
+
+    kleur <- c('#004699',
+               '#a6c8ec',
+               '#dbecfa')
+    brew_fun <- grDevices::colorRampPalette(kleur)
+
+    kleur <- brew_fun(dim*3)
+
+    kleur <- kleur[c(TRUE,FALSE, FALSE)]
+
+  }
+
+
 
 
 }

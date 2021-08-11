@@ -4,12 +4,14 @@
 \alias{likert_plot}
 \title{helper function to make ois likert scale in ggplot2}
 \usage{
-likert_plot(.data, y_as, fill)
+likert_plot(.data, y_as, fill, facet = NULL)
 }
 \arguments{
 \item{y_as}{de waarde die op de y-as worden getoond}
 
 \item{fill}{de waarde waarmee de balken worden gevuld}
+
+\item{facet}{de waarde die de groepen onderverdeelt in 'facets'}
 }
 \description{
 helper function to make ois likert scale in ggplot2

@@ -2,19 +2,14 @@
 #' @import ggplot2 dplyr forcats
 #' @param y_as de waarde die op de y-as worden getoond
 #' @param fill de waarde waarmee de balken worden gevuld
+#' @param facet de waarde die de groepen onderverdeelt in 'facets'
 #' @export
-likert_plot <- function(.data,y_as, fill){
+likert_plot <- function(.data, y_as, fill, facet = NULL){
 
   ## load fonts ----
 
   if(Sys.info()['sysname'] == "Windows"){
     grDevices::windowsFonts("Corbel" = grDevices::windowsFont("Corbel"))
-    font <- "Corbel"
-  }
-  else if(Sys.info()['sysname'] == "Linux"){
-    dir.create('~/.fonts')
-    file.copy('inst/exdata/fonts/CORBEL.TTF', '~/.fonts')
-    system('fc-cache -f ~/.fonts')
     font <- "Corbel"
   }
   else{
@@ -28,8 +23,18 @@ likert_plot <- function(.data,y_as, fill){
   fill <- dplyr::ensym(fill)
   y_as <- dplyr::ensym(y_as)
 
+  if(!is.null(facet)){
+
+    facet <- dplyr::sym(facet)
+
+  }
+
+
 
   # prepare data distribution ----
+
+
+  if(is.null(facet)){
 
   .data <- .data %>%
     dplyr::select({{y_as}}, {{fill}}) %>%
@@ -47,6 +52,29 @@ likert_plot <- function(.data,y_as, fill){
     dplyr::ungroup() %>%
     dplyr::group_by({{y_as}}) %>%
     dplyr::mutate(percent = n/sum(n) * 100)
+
+
+  }else if(!is.null(facet)){
+
+    .data <- .data %>%
+      dplyr::select({{y_as}}, {{fill}}, {{facet}}) %>%
+      dplyr::group_by({{y_as}}, {{facet}}) %>%
+      dplyr::mutate(n = n()) %>%
+      dplyr::mutate(n = paste0(" (n = ", format(n, big.mark = ".", decimal.mark = ","), ")")) %>%
+      dplyr::ungroup() %>%
+      dplyr::mutate('{{y_as}}' := paste0({{y_as}}, " ", n),
+                    '{{y_as}}' := as_factor({{y_as}})) %>%
+      dplyr::ungroup() %>%
+      dplyr::mutate('{{fill}}' := as_factor({{fill}}),
+                    '{{fill}}' := fct_explicit_na({{fill}}, "geen antwoord")) %>%
+      dplyr::group_by({{y_as}}, {{fill}}, {{facet}}) %>%
+      dplyr::count() %>%
+      dplyr::ungroup() %>%
+      dplyr::group_by({{y_as}}, {{facet}}) %>%
+      dplyr::mutate(percent = n/sum(n) * 100)
+
+
+  }
 
   # check and assign 'gray' cat. ----
 
@@ -85,6 +113,18 @@ likert_plot <- function(.data,y_as, fill){
 
   }
 
+  # facet ----
+
+  if(is.null(facet)){
+
+    facet_attach <- NULL
+
+  }else if(!is.null(facet)){
+
+    facet_attach <- ggplot2::facet_wrap(facets = {{facet}}, scales = "free_y")
+
+  }
+
   # plot data ----
 
   .data %>%
@@ -113,5 +153,8 @@ likert_plot <- function(.data,y_as, fill){
       legend.position= "bottom",
       panel.border = ggplot2::element_rect(fill = "transparent", color = NA),
       strip.text = ggplot2::element_text(color = "black", family = font, face = "bold", size = 15)
-    )
+    ) +
+    facet_attach
+
+
 }

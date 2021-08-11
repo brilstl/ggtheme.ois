@@ -1,0 +1,40 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ggtheme.ois
+
+De `{{ggtheme.ois}}` package is bedoeld om makkelijk plots te maken in OIS-huistijl. Het uitgangspunt is om zo snel mogelijk van dataset naar output te komen.
+
+## Installation
+
+De package kan als volgt worden geïnstalleerd van [GitHub](https://github.com/):
+
+```{r eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("brilstl/ggtheme.ois")
+```
+
+## Example
+
+Dit is een voorbeeld van een veel voorkomende plot binnen OIS:
+
+```{r example, fig.height=3, fig.width=5, dpi=300}
+library(ggtheme.ois)
+
+likert_plot(.data = mtcars, y_as = gear, fill = carb)
+
+```
+
+

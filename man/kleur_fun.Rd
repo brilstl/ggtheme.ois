@@ -6,6 +6,9 @@
 \usage{
 kleur_fun(dim)
 }
+\arguments{
+\item{dim}{het aantal unieke waardes in de fill}
+}
 \description{
 kleuren brewer voor OIS huisstijl
 }
