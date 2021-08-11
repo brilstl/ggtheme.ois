@@ -44,3 +44,12 @@ Als er meerdere groepen zijn die je onafhankelijk wil presenteren in een plot ka
 likert_plot(.data = mtcars, y_as = gear, fill = carb, facet = 'vs')
 
 ```
+
+Een andere mogelijkheid is om een donut plot te maken. De syntax is vergelijkbaar.
+
+```{r fig.height=2, fig.width=3, dpi=300}
+
+donut_plot(mtcars, carb)
+
+```
+

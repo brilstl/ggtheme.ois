@@ -38,3 +38,12 @@ likert_plot(.data = mtcars, y_as = gear, fill = carb, facet = 'vs')
 ```
 
 <img src="man/figures/README-example-likert-facet-1.png" width="100%" />
+
+Een andere mogelijkheid is om een donut plot te maken. De syntax is
+vergelijkbaar.
+
+``` r
+donut_plot(mtcars, carb)
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
