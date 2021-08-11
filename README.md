@@ -29,9 +29,9 @@ likert_plot(.data = mtcars, y_as = gear, fill = carb)
 
 <img src="man/figures/README-example-likert-1.png" width="100%" />
 
-Als er meerdere groepen zijn die je onafhankelijk wil presenteren in een
-plot kan de `facet = ...` functionaliteit worden toegepast. Deze
-variabelen moet tussen aanhalingstekens worden doorgegeven.
+De `facet = ...` functionaliteit kan worden toegepast om meerdere
+groepen onafhankelijk in een plot te tonen. Deze variabelen moet tussen
+aanhalingstekens worden doorgegeven aan de functie.
 
 ``` r
 likert_plot(.data = mtcars, y_as = gear, fill = carb, facet = 'vs')
@@ -40,10 +40,10 @@ likert_plot(.data = mtcars, y_as = gear, fill = carb, facet = 'vs')
 <img src="man/figures/README-example-likert-facet-1.png" width="100%" />
 
 Een andere mogelijkheid is om een donut plot te maken. De syntax is
-vergelijkbaar.
+vergelijkbaar alleen dan natuurlijk zonder de y as.
 
 ``` r
-donut_plot(mtcars, carb)
+donut_plot(.data = mtcars, fill = carb, facet = 'vs')
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-donut-plot-facet-1.png" width="100%" />
