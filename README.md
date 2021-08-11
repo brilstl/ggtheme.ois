@@ -27,4 +27,14 @@ library(ggtheme.ois)
 likert_plot(.data = mtcars, y_as = gear, fill = carb)
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-example-likert-1.png" width="100%" />
+
+Als er meerdere groepen zijn die je onafhankelijk wil presenteren in een
+plot kan de `facet = ...` functionaliteit worden toegepast. Deze
+variabelen moet tussen aanhalingstekens worden doorgegeven.
+
+``` r
+likert_plot(.data = mtcars, y_as = gear, fill = carb, facet = 'vs')
+```
+
+<img src="man/figures/README-example-likert-facet-1.png" width="100%" />

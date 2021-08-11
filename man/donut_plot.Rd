@@ -7,6 +7,8 @@
 donut_plot(.data, fill, facet = NULL)
 }
 \arguments{
+\item{.data}{het dataframe wat wordt meegeven aan de plot}
+
 \item{fill}{de waarde waarmee de balken worden gevuld}
 
 \item{facet}{de waarde die de groepen onderverdeelt in 'facets'}

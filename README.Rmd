@@ -30,11 +30,17 @@ devtools::install_github("brilstl/ggtheme.ois")
 
 Dit is een voorbeeld van een veel voorkomende plot binnen OIS:
 
-```{r example, fig.height=3, fig.width=5, dpi=300}
+```{r example-likert, fig.height=3, fig.width=5, dpi=300}
 library(ggtheme.ois)
 
 likert_plot(.data = mtcars, y_as = gear, fill = carb)
 
 ```
 
+Als er meerdere groepen zijn die je onafhankelijk wil presenteren in een plot kan de `facet = ...` functionaliteit worden toegepast. Deze variabelen moet tussen aanhalingstekens worden doorgegeven.
 
+```{r example-likert-facet, fig.height=3, fig.width=5, dpi=300}
+
+likert_plot(.data = mtcars, y_as = gear, fill = carb, facet = 'vs')
+
+```

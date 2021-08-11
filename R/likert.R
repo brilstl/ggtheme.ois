@@ -1,5 +1,6 @@
 #' @title helper function to make ois likert scale in ggplot2
 #' @import ggplot2 dplyr forcats
+#' @param .data het dataframe wat wordt meegeven aan de plot
 #' @param y_as de waarde die op de y-as worden getoond
 #' @param fill de waarde waarmee de balken worden gevuld
 #' @param facet de waarde die de groepen onderverdeelt in 'facets'
@@ -121,7 +122,7 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
 
   }else if(!is.null(facet)){
 
-    facet_attach <- ggplot2::facet_wrap(facets = {{facet}}, scales = "free_y")
+    facet_attach <- ggplot2::facet_wrap(facets = {{facet}}, scales = "free_y", ncol = 1)
 
   }
 
@@ -141,12 +142,12 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
                              expand = c(0.051,0.01)) +
     ggplot2::theme_bw() +
     ggplot2::theme(
-      axis.text = ggplot2::element_text(family = font, size = 15),
-      plot.caption = ggplot2::element_text(family = font, size = 15),
-      axis.title = ggplot2::element_text(family = font, hjust = 1, size = 15),
-      plot.subtitle = ggplot2::element_text(family = font, size = 18),
+      axis.text = ggplot2::element_text(family = font, size = 13),
+      plot.caption = ggplot2::element_text(family = font, size = 14),
+      axis.title = ggplot2::element_text(family = font, hjust = 1, size = 13),
+      plot.subtitle = ggplot2::element_text(family = font, size = 15),
       legend.text = ggplot2::element_text(family = font, size = 12),
-      plot.title = ggplot2::element_text(family = font, lineheight = 1.2, size = 19),
+      plot.title = ggplot2::element_text(family = font, lineheight = 1.2, size = 15),
       legend.title = ggplot2::element_text(family = font, lineheight = 1.2, size = 13),
       panel.grid.minor = ggplot2::element_blank(),
       strip.background = ggplot2::element_blank(),

@@ -21,12 +21,12 @@ theme_ois <- function(){
 
   ggplot2::theme_bw() +
     ggplot2::theme(
-      axis.text = ggplot2::element_text(family = font, size = 18),
-      plot.caption = ggplot2::element_text(family = font, size = 18),
-      axis.title = ggplot2::element_text(family = font, hjust = 1, size = 18),
-      plot.subtitle = ggplot2::element_text(family = font, size = 18),
-      legend.text = ggplot2::element_text(family = font, size = 15),
-      plot.title = ggplot2::element_text(family = font, lineheight = 1.2, size = 18),
+      axis.text = ggplot2::element_text(family = font, size = 13),
+      plot.caption = ggplot2::element_text(family = font, size = 14),
+      axis.title = ggplot2::element_text(family = font, hjust = 1, size = 13),
+      plot.subtitle = ggplot2::element_text(family = font, size = 15),
+      legend.text = ggplot2::element_text(family = font, size = 12),
+      plot.title = ggplot2::element_text(family = font, lineheight = 1.2, size = 15),
       legend.title = ggplot2::element_text(family = font, lineheight = 1.2, size = 13),
       panel.grid.minor = ggplot2::element_blank(),
       strip.background = ggplot2::element_blank(),

@@ -1,5 +1,6 @@
 #' @title helper function to make ois donut plot in ggplot2
 #' @import ggplot2 dplyr forcats
+#' @param .data het dataframe wat wordt meegeven aan de plot
 #' @param fill de waarde waarmee de balken worden gevuld
 #' @param facet de waarde die de groepen onderverdeelt in 'facets'
 #' @export

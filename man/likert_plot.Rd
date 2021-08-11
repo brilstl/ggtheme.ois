@@ -7,6 +7,8 @@
 likert_plot(.data, y_as, fill, facet = NULL)
 }
 \arguments{
+\item{.data}{het dataframe wat wordt meegeven aan de plot}
+
 \item{y_as}{de waarde die op de y-as worden getoond}
 
 \item{fill}{de waarde waarmee de balken worden gevuld}
