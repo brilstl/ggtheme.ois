@@ -21,7 +21,7 @@ De `{{ggtheme.ois}}` package is bedoeld om makkelijk plots te maken in OIS-huist
 
 De package kan als volgt worden geïnstalleerd van [GitHub](https://github.com/):
 
-```{r eval=FALSE}
+```{r}
 # install.packages("devtools")
 devtools::install_github("brilstl/ggtheme.ois")
 ```

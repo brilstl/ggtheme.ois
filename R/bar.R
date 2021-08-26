@@ -23,7 +23,8 @@ bar_plot <- function(.data, y_as, percent = TRUE){
   }
 
   .data <- .data %>%
-    mutate('{{y_as}}' := fct_explicit_na({{y_as}}, "geen antwoord"),
+    mutate('{{y_as}}' := as_factor({{y_as}}),
+           '{{y_as}}' := fct_explicit_na({{y_as}}, "geen antwoord"),
            '{{y_as}}' := fct_reorder({{y_as}}, n))
 
 
