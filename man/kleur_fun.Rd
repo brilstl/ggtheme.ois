@@ -4,7 +4,7 @@
 \alias{kleur_fun}
 \title{kleuren brewer voor OIS huisstijl}
 \usage{
-kleur_fun(dim)
+kleur_fun(dim, pal = kleuren$blauw)
 }
 \arguments{
 \item{dim}{het aantal unieke waardes in de fill}

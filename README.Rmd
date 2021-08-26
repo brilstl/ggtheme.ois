@@ -21,7 +21,7 @@ De `{{ggtheme.ois}}` package is bedoeld om makkelijk plots te maken in OIS-huist
 
 De package kan als volgt worden geïnstalleerd van [GitHub](https://github.com/):
 
-```{r}
+```{r eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("brilstl/ggtheme.ois")
 ```
@@ -37,7 +37,7 @@ likert_plot(.data = mtcars, y_as = gear, fill = carb)
 
 ```
 
-De `facet = ...` functionaliteit kan worden toegepast om meerdere groepen onafhankelijk in een plot te tonen. Deze variabelen moet tussen aanhalingstekens worden doorgegeven aan de functie.
+De `facet = ...` functionaliteit kan worden toegepast om meerdere groepen onafhankelijk in een plot te tonen. 
 
 ```{r example-likert-facet, fig.height= 4, dpi=300}
 
