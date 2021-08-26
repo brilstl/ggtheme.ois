@@ -53,3 +53,11 @@ donut_plot(.data = mtcars, fill = carb, facet = 'vs')
 
 ```
 
+Een gewone bar plot kan ook gemaakt worden:
+
+```{r}
+
+bar_plot(.data = mtcars, y_as = carb)
+
+```
+

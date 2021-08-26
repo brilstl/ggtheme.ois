@@ -1,12 +1,12 @@
 Package: ggtheme.ois
 Type: Package
 Title: helper function to add ois style to ggplot2
-Version: 0.1
+Version: 0.5
 Authors@R: person("Brils", "Tobias", email = "t.brils@amsterdam.nl",
                   role = c("aut", "cre"))
 Description: integratie huisstijl in R ggplot2. de functie {{theme_ois}} zorgt ervoor dat de ggplot's een OIS huisstijl hebben.
 Encoding: UTF-8
-License: -
+License: MIT + file LICENSE
 LazyData: true
 Suggests: 
     testthat (>= 3.0.0)
@@ -15,5 +15,6 @@ Imports:
     forcats,
     dplyr,
     ggplot2,
-    grDevices
+    grDevices,
+    rlang
 RoxygenNote: 7.1.1

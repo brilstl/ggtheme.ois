@@ -3,30 +3,41 @@
 #' @export
 kleur_fun <- function(dim){
 
-  if(dim < 5){
+  kleur <- c('#004699',
+             '#dbecfa')
 
-    kleur <- c('#004699',
-               '#a6c8ec',
-               '#dbecfa')
+  if(dim < 3){
 
     brew_fun <- grDevices::colorRampPalette(kleur)
 
-    kleur <- brew_fun(dim*3)
+    kleur <- brew_fun(dim*4)
 
-    kleur <- kleur[c(TRUE,FALSE,FALSE)]
+    kleur <- kleur[c(1, length(kleur))]
 
-  }else{
+    kleur
 
-    kleur <- c('#004699',
-               '#a6c8ec',
-               '#dbecfa')
-    brew_fun <- grDevices::colorRampPalette(kleur)
+    }else if(dim == 3){
 
-    kleur <- brew_fun(dim*3)
+      brew_fun <- grDevices::colorRampPalette(kleur)
 
-    kleur <- kleur[c(TRUE,FALSE, FALSE)]
+      kleur <- brew_fun(dim*4)
 
-  }
+      kleur <- kleur[c(1, (length(kleur)/2), length(kleur))]
+
+      kleur
+
+
+      }else{
+
+        brew_fun <- grDevices::colorRampPalette(kleur)
+
+        kleur <- brew_fun(dim*4)
+
+        kleur <- kleur[c(TRUE,FALSE, FALSE, FALSE)]
+
+        kleur
+
+        }
 
 
 

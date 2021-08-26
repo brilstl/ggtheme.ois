@@ -1,5 +1,6 @@
 #' @title helper function to make ois likert scale in ggplot2
 #' @import ggplot2 dplyr forcats
+#' @importFrom rlang quo_is_null
 #' @param .data het dataframe wat wordt meegeven aan de plot
 #' @param y_as de waarde die op de y-as worden getoond
 #' @param fill de waarde waarmee de balken worden gevuld
@@ -21,21 +22,16 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
   # check evaluation of vars ----
 
 
-  fill <- dplyr::ensym(fill)
-  y_as <- dplyr::ensym(y_as)
-
-  if(!is.null(facet)){
-
-    facet <- dplyr::sym(facet)
-
-  }
+  fill <- dplyr::enquo(fill)
+  y_as <- dplyr::enquo(y_as)
+  facet <- dplyr::enquo(facet)
 
 
 
   # prepare data distribution ----
 
 
-  if(is.null(facet)){
+  if(rlang::quo_is_null(facet)){
 
   .data <- .data %>%
     dplyr::select({{y_as}}, {{fill}}) %>%
@@ -52,10 +48,12 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
     dplyr::count() %>%
     dplyr::ungroup() %>%
     dplyr::group_by({{y_as}}) %>%
-    dplyr::mutate(percent = n/sum(n) * 100)
+    dplyr::mutate(percent = n/sum(n) * 100) %>%
+    dplyr::ungroup()
 
 
-  }else if(!is.null(facet)){
+  }
+  else{
 
     .data <- .data %>%
       dplyr::select({{y_as}}, {{fill}}, {{facet}}) %>%
@@ -72,7 +70,8 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
       dplyr::count() %>%
       dplyr::ungroup() %>%
       dplyr::group_by({{y_as}}, {{facet}}) %>%
-      dplyr::mutate(percent = n/sum(n) * 100)
+      dplyr::mutate(percent = n/sum(n) * 100) %>%
+      dplyr::ungroup()
 
 
   }
@@ -116,13 +115,15 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
 
   # facet ----
 
-  if(is.null(facet)){
+  if(rlang::quo_is_null(facet)){
 
     facet_attach <- NULL
 
-  }else if(!is.null(facet)){
+  }else{
 
-    facet_attach <- ggplot2::facet_wrap(facets = {{facet}}, scales = "free_y", ncol = 1)
+    facet_attach <- ggplot2::facet_wrap(facets = {{facet}},
+                                        scales = "free_y",
+                                        ncol = 1)
 
   }
 
