@@ -41,7 +41,7 @@ De `facet = ...` functionaliteit kan worden toegepast om meerdere groepen onafha
 
 ```{r example-likert-facet, fig.height= 4, dpi=300}
 
-likert_plot(.data = mtcars, y_as = gear, fill = carb, facet = 'vs')
+likert_plot(.data = mtcars, y_as = gear, fill = carb, facet = vs)
 
 ```
 
@@ -55,7 +55,7 @@ donut_plot(.data = mtcars, fill = carb, facet = 'vs')
 
 Een gewone bar plot kan ook gemaakt worden:
 
-```{r}
+```{r example-bar_plot, fig.height= 4, dpi=300}
 
 bar_plot(.data = mtcars, y_as = carb)
 

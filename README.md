@@ -15,6 +15,11 @@ De package kan als volgt worden geïnstalleerd van
 ``` r
 # install.packages("devtools")
 devtools::install_github("brilstl/ggtheme.ois")
+#> WARNING: Rtools is required to build R packages, but is not currently installed.
+#> 
+#> Please download and install Rtools 4.0 from https://cran.r-project.org/bin/windows/Rtools/.
+#> Skipping install of 'ggtheme.ois' from a github remote, the SHA1 (e75d4590) has not changed since last install.
+#>   Use `force = TRUE` to force installation
 ```
 
 ## Example
@@ -34,7 +39,7 @@ groepen onafhankelijk in een plot te tonen. Deze variabelen moet tussen
 aanhalingstekens worden doorgegeven aan de functie.
 
 ``` r
-likert_plot(.data = mtcars, y_as = gear, fill = carb, facet = 'vs')
+likert_plot(.data = mtcars, y_as = gear, fill = carb, facet = vs)
 ```
 
 <img src="man/figures/README-example-likert-facet-1.png" width="100%" />
@@ -47,3 +52,11 @@ donut_plot(.data = mtcars, fill = carb, facet = 'vs')
 ```
 
 <img src="man/figures/README-donut-plot-facet-1.png" width="100%" />
+
+Een gewone bar plot kan ook gemaakt worden:
+
+``` r
+bar_plot(.data = mtcars, y_as = carb)
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />

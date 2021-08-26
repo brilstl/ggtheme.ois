@@ -44,7 +44,25 @@ bar_plot <- function(.data, y_as, percent = TRUE){
     )]
   )
 
+  if(percent){
 
+    x_as <- scale_x_continuous(labels = label_percentage)
+
+
+  }else{
+
+    x_as <- scale_x_continuous(labels = function(x) format(round(x, digits = 1L), big.mark = '.', decimal.mark = ','))
+
+  }
+
+  if(
+    identical(gray_check, character(0))
+  ){
+    geen_antwoord <- scale_fill_manual(values = c("#71BDEE"))
+  }
+  else{
+    geen_antwoord <- scale_fill_manual(values = c("grey91", "#71BDEE"))
+  }
 
   .data %>%
     mutate('{{y_as}}' := fct_relevel({{y_as}},
@@ -59,9 +77,11 @@ bar_plot <- function(.data, y_as, percent = TRUE){
       fill = highlight
     )) +
     geom_col() +
-    scale_fill_manual(values = c("grey91", "#71BDEE")) +
-    scale_x_continuous(labels = label_percentage) +
-    theme_ois()
-
+    theme_ois() +
+    labs(x = NULL,
+         y = NULL) +
+    theme(legend.position = "none") +
+    x_as +
+    geen_antwoord
 
 }
