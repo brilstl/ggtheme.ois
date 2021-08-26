@@ -31,9 +31,7 @@ kleur_fun <- function(dim){
 
         brew_fun <- grDevices::colorRampPalette(kleur)
 
-        kleur <- brew_fun(dim*4)
-
-        kleur <- kleur[c(TRUE,FALSE, FALSE, FALSE)]
+        kleur <- brew_fun(dim)
 
         kleur
 
