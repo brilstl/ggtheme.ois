@@ -6,7 +6,7 @@
 #' @param fill de waarde waarmee de balken worden gevuld
 #' @param facet de waarde die de groepen onderverdeelt in 'facets'
 #' @export
-likert_plot <- function(.data, y_as, fill, facet = NULL){
+likert_plot <- function(.data, y_as, fill, facet = NULL, ...){
 
   ## load fonts ----
 
@@ -43,7 +43,7 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
                   '{{y_as}}' := as_factor({{y_as}})) %>%
     dplyr::ungroup() %>%
     dplyr::mutate('{{fill}}' := as_factor({{fill}}),
-                  '{{fill}}' := fct_explicit_na({{fill}}, "geen antwoord")) %>%
+                  '{{fill}}' := fct_explicit_na({{fill}}, "niet ingevuld")) %>%
     dplyr::group_by({{y_as}}, {{fill}}) %>%
     dplyr::count() %>%
     dplyr::ungroup() %>%
@@ -65,7 +65,7 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
                     '{{y_as}}' := as_factor({{y_as}})) %>%
       dplyr::ungroup() %>%
       dplyr::mutate('{{fill}}' := as_factor({{fill}}),
-                    '{{fill}}' := fct_explicit_na({{fill}}, "geen antwoord")) %>%
+                    '{{fill}}' := fct_explicit_na({{fill}}, "niet ingevuld")) %>%
       dplyr::group_by({{y_as}}, {{fill}}, {{facet}}) %>%
       dplyr::count() %>%
       dplyr::ungroup() %>%
@@ -85,7 +85,7 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
 
   gray_check <- sum(
     grepl(
-      "geen antwoord",
+      "geen antwoord|niet ingevuld|onbekend",
       kleur_lab,
       ignore.case = TRUE
     ),
@@ -94,7 +94,7 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
 
   kleur_n <- length(kleur_lab)
 
-  kleur <- kleur_fun(kleur_n)
+  kleur <- kleur_fun(kleur_n, ...)
 
   if(gray_check == 0){
 
@@ -136,7 +136,7 @@ likert_plot <- function(.data, y_as, fill, facet = NULL){
     ggplot2::geom_bar(stat = "identity",
              position = ggplot2::position_stack(),
              width = 0.8) +
-    ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1)) +
+    ggplot2::guides(fill = ggplot2::guide_legend(byrow = TRUE)) +
     ggplot2::labs(x=NULL, y=NULL, fill = NULL) +
     ggplot2::scale_x_reverse(breaks = seq(0, 100, 20),
                              labels = c("100%","80", "60", "40", "20", "0"),

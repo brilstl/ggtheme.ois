@@ -4,7 +4,7 @@
 #' @param fill de waarde waarmee de balken worden gevuld
 #' @param facet de waarde die de groepen onderverdeelt in 'facets'
 #' @export
-donut_plot <- function(.data, fill, facet = NULL){
+donut_plot <- function(.data, fill, facet = NULL, ...){
 
   if(Sys.info()['sysname'] == "Windows"){
     grDevices::windowsFonts("Corbel" = grDevices::windowsFont("Corbel"))
@@ -31,7 +31,7 @@ donut_plot <- function(.data, fill, facet = NULL){
       dplyr::select({{fill}}) %>%
       dplyr::mutate(n = n()) %>%
       dplyr::mutate('{{fill}}' := forcats::as_factor({{fill}}),
-                    '{{fill}}' := forcats::fct_explicit_na({{fill}}, "geen antwoord")) %>%
+                    '{{fill}}' := forcats::fct_explicit_na({{fill}}, "niet ingevuld")) %>%
       dplyr::group_by({{fill}}) %>%
       dplyr::count() %>%
       dplyr::ungroup() %>%
@@ -46,7 +46,7 @@ donut_plot <- function(.data, fill, facet = NULL){
       dplyr::select({{fill}}, {{facet}}) %>%
       dplyr::mutate(n = n()) %>%
       dplyr::mutate('{{fill}}' := forcats::as_factor({{fill}}),
-                    '{{fill}}' := forcats::fct_explicit_na({{fill}}, "geen antwoord")) %>%
+                    '{{fill}}' := forcats::fct_explicit_na({{fill}}, "niet ingevuld")) %>%
       dplyr::group_by({{fill}}, {{facet}}) %>%
       dplyr::count() %>%
       dplyr::ungroup() %>%
@@ -68,7 +68,7 @@ donut_plot <- function(.data, fill, facet = NULL){
 
   gray_check <- sum(
     grepl(
-      "geen antwoord",
+      "geen antwoord|niet ingevuld|onbekend",
       kleur_lab,
       ignore.case = TRUE
     ),
@@ -77,7 +77,7 @@ donut_plot <- function(.data, fill, facet = NULL){
 
   kleur_n <- length(kleur_lab)
 
-  kleur <- kleur_fun(kleur_n)
+  kleur <- kleur_fun(kleur_n, ...)
 
   if(gray_check == 0){
 
@@ -129,7 +129,7 @@ donut_plot <- function(.data, fill, facet = NULL){
     ggplot2::scale_fill_manual(values = kleur) +
     ggplot2::scale_color_manual(values = kleur) +
     ggplot2::coord_polar(theta="y") +
-    ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1)) +
+    ggplot2::guides(fill = ggplot2::guide_legend(byrow = TRUE)) +
     ggplot2::labs(fill = NULL) +
     ggplot2::xlim(c(-1, 4)) +
     theme_ois() +

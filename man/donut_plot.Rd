@@ -4,7 +4,7 @@
 \alias{donut_plot}
 \title{helper function to make ois donut plot in ggplot2}
 \usage{
-donut_plot(.data, fill, facet = NULL)
+donut_plot(.data, fill, facet = NULL, ...)
 }
 \arguments{
 \item{.data}{het dataframe wat wordt meegeven aan de plot}

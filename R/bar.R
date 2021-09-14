@@ -24,7 +24,7 @@ bar_plot <- function(.data, y_as, percent = TRUE){
 
   .data <- .data %>%
     mutate('{{y_as}}' := as_factor({{y_as}}),
-           '{{y_as}}' := fct_explicit_na({{y_as}}, "geen antwoord"),
+           '{{y_as}}' := fct_explicit_na({{y_as}}, "niet ingevuld"),
            '{{y_as}}' := fct_reorder({{y_as}}, n))
 
 
@@ -38,7 +38,7 @@ bar_plot <- function(.data, y_as, percent = TRUE){
 
   gray_check <- as.character(
     kleur_lab[grepl(
-    "geen antwoord",
+    "geen antwoord|niet ingevuld|onbekend",
     as.character(kleur_lab),
     ignore.case = TRUE
     )]

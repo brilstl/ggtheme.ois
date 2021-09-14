@@ -4,7 +4,7 @@
 \alias{likert_plot}
 \title{helper function to make ois likert scale in ggplot2}
 \usage{
-likert_plot(.data, y_as, fill, facet = NULL)
+likert_plot(.data, y_as, fill, facet = NULL, ...)
 }
 \arguments{
 \item{.data}{het dataframe wat wordt meegeven aan de plot}
