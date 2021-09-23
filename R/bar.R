@@ -38,7 +38,7 @@ bar_plot <- function(.data, y_as, percent = TRUE){
 
   gray_check <- as.character(
     kleur_lab[grepl(
-    "geen antwoord|niet ingevuld|onbekend",
+    "geen antwoord|niet ingevuld|onbekend|anders, namelijk|anders namelijk",
     as.character(kleur_lab),
     ignore.case = TRUE
     )]
