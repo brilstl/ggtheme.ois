@@ -131,7 +131,7 @@ likert_plot <- function(.data, y_as, fill, facet = NULL, ...){
 
   .data %>%
     ggplot2::ggplot(aes(y = {{y_as}},
-               x = percent, fill = fct_rev({{fill}}))) +
+               x = percent, fill = {{fill}})) +
     ggplot2::scale_fill_manual(values = c(kleur)) +
     ggplot2::geom_bar(stat = "identity",
              position = ggplot2::position_stack(),
