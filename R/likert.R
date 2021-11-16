@@ -9,16 +9,6 @@
 #' @export
 likert_plot <- function(.data, y_as, fill, facet = NULL, ...){
 
-  ## load fonts ----
-
-  if(Sys.info()['sysname'] == "Windows"){
-    grDevices::windowsFonts("Corbel" = grDevices::windowsFont("Corbel"))
-    font <- "Corbel"
-  }
-  else{
-    font <- "sans"
-  }
-
 
   # check evaluation of vars ----
 
