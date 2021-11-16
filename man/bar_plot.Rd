@@ -4,7 +4,7 @@
 \alias{bar_plot}
 \title{helper function to make ois bar plot in ggplot2}
 \usage{
-bar_plot(.data, y_as, percent = TRUE)
+bar_plot(.data, y_as, percent = TRUE, ...)
 }
 \arguments{
 \item{.data}{het dataframe wat wordt meegeven aan de plot}

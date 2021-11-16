@@ -32,7 +32,7 @@ theme_ois <- function(){
       strip.background = ggplot2::element_blank(),
       legend.position="bottom",
       panel.border = ggplot2::element_rect(fill = "transparent", color = NA),
-      strip.text = ggplot2::element_text(color = "black", family = font, face = "bold", size = 18)
+      strip.text = ggplot2::element_text(color = "black", family = font, face = "bold", size = 15)
     )
 
 

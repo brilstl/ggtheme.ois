@@ -61,41 +61,7 @@ donut_plot <- function(.data, fill, facet = NULL, ...){
 
   # check and assign 'gray' cat. ----
 
-  kleur_lab <- .data %>%
-    distinct({{fill}}) %>%
-    arrange({{fill}}) %>%
-    pull({{fill}})
-
-  gray_check <- sum(
-    grepl(
-      "geen antwoord|niet ingevuld|onbekend",
-      kleur_lab,
-      ignore.case = TRUE
-    ),
-    na.rm = TRUE
-  )
-
-  kleur_n <- length(kleur_lab)
-
-  kleur <- kleur_fun(kleur_n, ...)
-
-  if(gray_check == 0){
-
-    kleur <- kleur
-
-  }
-  else if(gray_check > 0){
-
-    n_keep <- length(kleur) - gray_check
-
-    brew_gray <- grDevices::colorRampPalette(c('gray85', 'gray91'))
-
-    gray_add <- brew_gray(gray_check)
-
-    kleur <- c(kleur[c(1:n_keep)], gray_add)
-
-  }
-
+  kleur <- ggtheme.ois::gray_shades(.data, {{fill}}, ...)
 
   # facet ----
 
@@ -129,7 +95,7 @@ donut_plot <- function(.data, fill, facet = NULL, ...){
     ggplot2::scale_fill_manual(values = kleur) +
     ggplot2::scale_color_manual(values = kleur) +
     ggplot2::coord_polar(theta="y") +
-    ggplot2::guides(fill = ggplot2::guide_legend(byrow = TRUE)) +
+    ggplot2::guides(fill = ggplot2::guide_legend(byrow = TRUE, nrow = 2)) +
     ggplot2::labs(fill = NULL) +
     ggplot2::xlim(c(-1, 4)) +
     theme_ois() +

@@ -1,5 +1,6 @@
 #' @title helper function to make ois likert scale in ggplot2
 #' @import ggplot2 dplyr forcats
+#' @importFrom rlang :=
 #' @importFrom rlang quo_is_null
 #' @param .data het dataframe wat wordt meegeven aan de plot
 #' @param y_as de waarde die op de y-as worden getoond
@@ -76,42 +77,7 @@ likert_plot <- function(.data, y_as, fill, facet = NULL, ...){
 
   }
 
-  # check and assign 'gray' cat. ----
-
-  kleur_lab <- .data %>%
-    distinct({{fill}}) %>%
-    arrange({{fill}}) %>%
-    pull({{fill}})
-
-  gray_check <- sum(
-    grepl(
-      "geen antwoord|niet ingevuld|onbekend",
-      kleur_lab,
-      ignore.case = TRUE
-    ),
-    na.rm = TRUE
-  )
-
-  kleur_n <- length(kleur_lab)
-
-  kleur <- kleur_fun(kleur_n, ...)
-
-  if(gray_check == 0){
-
-    kleur <- kleur
-
-  }
-  else if(gray_check > 0){
-
-    n_keep <- length(kleur) - gray_check
-
-    brew_gray <- grDevices::colorRampPalette(c('gray85', 'gray91'))
-
-    gray_add <- brew_gray(gray_check)
-
-    kleur <- c(kleur[c(1:n_keep)], gray_add)
-
-  }
+  kleur <- ggtheme.ois::gray_shades(.data, {{fill}}, ...)
 
   # facet ----
 
@@ -142,20 +108,7 @@ likert_plot <- function(.data, y_as, fill, facet = NULL, ...){
                              labels = c("100%","80", "60", "40", "20", "0"),
                              expand = c(0.051,0.01)) +
     ggplot2::theme_bw() +
-    ggplot2::theme(
-      axis.text = ggplot2::element_text(family = font, size = 13),
-      plot.caption = ggplot2::element_text(family = font, size = 14),
-      axis.title = ggplot2::element_text(family = font, hjust = 1, size = 13),
-      plot.subtitle = ggplot2::element_text(family = font, size = 15),
-      legend.text = ggplot2::element_text(family = font, size = 12),
-      plot.title = ggplot2::element_text(family = font, lineheight = 1.2, size = 15),
-      legend.title = ggplot2::element_text(family = font, lineheight = 1.2, size = 13),
-      panel.grid.minor = ggplot2::element_blank(),
-      strip.background = ggplot2::element_blank(),
-      legend.position= "bottom",
-      panel.border = ggplot2::element_rect(fill = "transparent", color = NA),
-      strip.text = ggplot2::element_text(color = "black", family = font, face = "bold", size = 15)
-    ) +
+    ggtheme.ois::theme_ois() +
     facet_attach
 
 
