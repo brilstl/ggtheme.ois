@@ -43,9 +43,11 @@ bar_plot <- function(.data, y_as, percent = TRUE, ...){
   }
 
   if(
-    identical(gray_check, character(0))
+    identical(na.omit(gray_check), character(0))
   ){
     geen_antwoord <- ggplot2::scale_fill_manual(values = c("#71BDEE"))
+
+
   }
   else{
 
